@@ -61,13 +61,18 @@ export const login = (req, res) => {
         const {password, ...otherInfo} = data[0];
 
         res.cookie("access_token", token, {
-                httpOnly: true,
-            })
+            httpOnly: true,
+        })
             .status(200)
             .json(otherInfo);
     });
 }
 
 export const logout = (req, res) => {
-
+    res.clearCookie("access_token", {
+        sameSite: "none",
+        secure: true
+    })
+        .status(200)
+        .json("User has been logged out.")
 }
